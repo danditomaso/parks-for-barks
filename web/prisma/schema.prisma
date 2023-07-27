@@ -1,0 +1,58 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider          = "postgresql"
+  url               = env("POSTGRES_PRISMA_URL")
+  directUrl         = env("POSTGRES_URL_NON_POOLING")
+  shadowDatabaseUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+model Media {
+  id        Int      @id @default(autoincrement())
+  url       String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  parkId    Int
+  park      Park     @relation(fields: [parkId], references: [id])
+}
+
+model ParkDetail {
+  id                Int      @id @default(autoincrement())
+  latitude          Float
+  longitude         Float
+  surfaceType       String?
+  isFenced          Boolean?
+  smallDogArea      Boolean?
+  dogWalkersAllowed Boolean?
+  address           String?
+  fencingType       String?
+  size              String?
+  features          String?
+  rules             String?
+  hours             String?
+  fees              String?
+  phone             String?
+  email             String?
+  website           String?
+  parkId            Int
+  park              Park     @relation(fields: [parkId], references: [id])
+}
+
+model Park {
+  id          Int          @id @default(autoincrement())
+  name        String
+  description String?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  media       Media[]
+  parkDetail  ParkDetail[]
+}
+
+model User {
+  id       Int     @id @default(autoincrement())
+  email    String  @unique
+  password String
+  name     String?
+}
