@@ -4,7 +4,7 @@ import { parks } from "./data";
 
 async function main() {
   const password = await hash(
-    process.env?.FIRST_USER_PASSWORD?.toString() ?? "",
+    process.env?.SEED_USER_PASSWORD?.toString() ?? "",
     12
   );
   try {
@@ -16,10 +16,16 @@ async function main() {
     console.log("Deleted records in park detail table");
     await prisma.media.deleteMany();
     console.log("Deleted records in media table");
+    await prisma.userRole.deleteMany();
+    console.log("Deleted records in user role table");
 
     await prisma.park.createMany({
       data: parks,
     });
+
+    // await prisma.userRole.createMany({
+    //   data: roles,
+    // });
 
     const response = await prisma.user.upsert({
       where: { email: "test@test.com" },
@@ -27,6 +33,11 @@ async function main() {
       create: {
         name: "Dan D",
         email: "test@test.com",
+        role: {
+          create: {
+            name: "admin",
+          },
+        },
         password,
       },
     });

@@ -1,4 +1,17 @@
-import { _Park, ParkDetail } from "@/schemas";
+import { _Park, _User, _UserRole } from "@/schemas/features";
+
+// export const roles: _UserRole[] = [
+//   {
+//     name: "admin",
+//     createdAt: new Date(),
+//     updatedAt: new Date(),
+//   },
+//   {
+//     name: "user",
+//     createdAt: new Date(),
+//     updatedAt: new Date(),
+//   },
+// ];
 
 export const parks: _Park[] = [
   {

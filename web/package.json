@@ -9,6 +9,7 @@
     "lint": "next lint",
     "generate": "prisma generate",
     "seed": "npx prisma db seed",
+    "studio": "npx prisma studio",
     "migrate": "npx prisma migrate dev",
     "dbpush": "npx prisma db push"
   },
